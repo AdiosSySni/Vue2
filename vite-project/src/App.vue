@@ -8,5 +8,5 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <style lang="sass">
 body
-  background-color: #eaaa00
+  background-color: black
 </style>

@@ -1,16 +1,23 @@
 <script setup>
 import { ref, reactive } from 'vue'
 
-  const data = reactive({symbol: ""})
-  function addText(value){
-    data.symbol = value
-  }
+// const data = reactive({symbol: ""})
 
+let arr = reactive([]);
+
+function addText(value){
+  if(value == null) return
+  arr.push(value.charAt(0).toUpperCase() + value.slice(1))
+}
 </script>
 
 <template>
-  <input v-model="myInput" @keypress.enter="addText(myInput)">
-  <p v-if="data.symbol">{{data.symbol}}</p>
+  <input v-model="myInput" @keyup.enter="addText(myInput)">
+  <p v-if="arr.length">
+    <p v-for="(elem, index) in arr" :key="elem">{{elem}}
+      <button @click="arr.splice(index, 1)">Удалить</button>
+    </p>
+  </p>
   <p v-else>Текста нет</p>
 </template>
 
@@ -18,7 +25,7 @@ import { ref, reactive } from 'vue'
 
 input
   font-family: Arial, sans-serif
-  background-color: #eaaa00
+  background-color: gray
   border: 3px solid #FFFFFF
   font-size: 18px
   outline: none
