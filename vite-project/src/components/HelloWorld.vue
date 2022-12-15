@@ -67,17 +67,15 @@ export default {
 
 </script>
 
-
-
-
 <template>
   <h1 :style="{
     color: myInput.length <= 5 ? 'darkred' : 'darkblue',
     fontSize: myInput.length <= 8 ? '48px' : '32px'
   }">Список задач</h1>
   <input v-model="myInput" @keyup.enter="addText()" @input="setValue()">
+  <button @click="addText()">Добавить</button>
   <p v-if="arr.length">
-    <p v-for="(elem, index) in arr" :key="elem">({{index}}) {{elem}}
+    <p v-for="(elem, index) in arr" :key="elem">({{index+1}}) {{elem}}
       <button @click="arr.splice(index, 1)">Удалить</button>
     </p>
     <p>Всего записей: {{arr.length}}. Удовоенное: {{arr.length*2}}</p>
