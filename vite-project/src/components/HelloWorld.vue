@@ -6,8 +6,10 @@ import { ref, reactive } from 'vue'
 let arr = reactive([]);
 
 function addText(value){
-  if(value == null) return
+  if(value == '') return
   arr.push(value.charAt(0).toUpperCase() + value.slice(1))
+  let input = ref(value)
+  input = ''
 }
 </script>
 
@@ -17,8 +19,11 @@ function addText(value){
     <p v-for="(elem, index) in arr" :key="elem">{{elem}}
       <button @click="arr.splice(index, 1)">Удалить</button>
     </p>
+    <p>Всего записей: {{arr.length}}. Удовоенное: {{arr.length*2}}</p>
   </p>
-  <p v-else>Текста нет</p>
+  <p v-else>Записей нет</p>
+  
+  
 </template>
 
 <style scoped lang="sass">
