@@ -1,22 +1,83 @@
-<script setup>
+<script >
 import { ref, reactive } from 'vue'
+
+export default {
+  setup() {
+    const arr = reactive([]);
+    const myInput = ref('')
+    const inputValue = myInput;
+   
+    function addText(){
+      if(this.myInput == '') {
+        return
+      }
+      else if(this.myInput.length > 5){
+        arr.push(this.myInput.charAt(0).toUpperCase() + this.myInput.slice(1))
+        this.myInput = ''
+      }
+    }
+
+    function setValue() {
+      if(inputValue.value.length < 11) {
+        this.myInput = inputValue.value
+      }
+      else {
+        this.myInput = ''
+      }
+    }
+   return {
+    arr, myInput, inputValue,
+    addText, setValue,
+   }
+  }
+}
+
 
 // const data = reactive({symbol: ""})
 
-let arr = reactive([]);
+// const arr = reactive([]);
+// const myInput = ref('')
+// const inputValue = myInput;
 
-function addText(value){
-  if(value == '') return
-  arr.push(value.charAt(0).toUpperCase() + value.slice(1))
-  let input = ref(value)
-  input = ''
-}
+// function addText(){
+//   if(this.myInput == '') {
+//     return
+//   }
+//   else if(this.myInput.length > 5){
+//     arr.push(this.myInput.charAt(0).toUpperCase() + this.myInput.slice(1))
+//     this.myInput = ''
+//   }
+// }
+
+// function setValue() {
+//   if(inputValue.value.length < 11) {
+//     this.myInput = inputValue.value
+//   }
+//   else {
+//     this.myInput = ''
+//   }
+// }
+
+// // function addItem() {
+// //   if(this.myInput.length > 5) {
+// //     this.arr.push(this.myInput)
+// //     this.myInput = ''
+// //   }
+// // }
+
 </script>
 
+
+
+
 <template>
-  <input v-model="myInput" @keyup.enter="addText(myInput)">
+  <h1 :style="{
+    color: myInput.length <= 5 ? 'darkred' : 'darkblue',
+    fontSize: myInput.length <= 8 ? '48px' : '32px'
+  }">Список задач</h1>
+  <input v-model="myInput" @keyup.enter="addText()" @input="setValue()">
   <p v-if="arr.length">
-    <p v-for="(elem, index) in arr" :key="elem">{{elem}}
+    <p v-for="(elem, index) in arr" :key="elem">({{index}}) {{elem}}
       <button @click="arr.splice(index, 1)">Удалить</button>
     </p>
     <p>Всего записей: {{arr.length}}. Удовоенное: {{arr.length*2}}</p>
@@ -27,7 +88,7 @@ function addText(value){
 </template>
 
 <style scoped lang="sass">
-
+@use "sass:math"
 input
   font-family: Arial, sans-serif
   background-color: gray
@@ -40,6 +101,5 @@ p
   font-family: Arial, sans-serif
   font-size: 18px
   color: #FFFFFF
-
 
 </style>
