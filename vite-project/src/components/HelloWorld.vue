@@ -12,7 +12,9 @@ export default {
         return
       }
       else if(this.myInput.length > 5){
-        arr.push(this.myInput.charAt(0).toUpperCase() + this.myInput.slice(1))
+        // 
+arr.push(this.myInput.charAt(0).toUpperCase() + this.myInput.slice(1))
+        arr.push(this.myInput.toUpperCase())
         this.myInput = ''
       }
     }
